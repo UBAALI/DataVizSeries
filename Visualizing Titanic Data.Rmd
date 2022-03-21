@@ -1,0 +1,187 @@
+---
+title: "Visualizing Titanic Data"
+author: "Karani Wachira"
+date: "10/01/2022"
+output: html_document
+---
+
+In this project I used the Titanic data from kaggle to answer some questions about the titanic.
+
+<!----First load the packages to use here.----->
+```{r}
+#First load the packages to use here
+library(ggplot2)
+library(readr)
+
+```
+
+<!---------I used the Titanic data set from Kaggle----->
+```{r}
+#I used the Titanic data set from Kaggle
+titanic <- read_csv("data/train.csv")
+View(titanic)
+```
+```{r}
+view(train)
+```
+```{r}
+library(tidyverse)
+view(train)
+```
+
+```{r}
+train$Pclass<-as.factor(train$Pclass)
+```
+
+<!--Set up as factors to use in color-coding our visualization-->
+```{r}
+#Set up as factors to use in color-coding our visualization
+train$Pclass <-as.factor(train$Pclass)
+train$Survived <- as.factor(train$Survived)
+train$Sex <- as.factor(train$Sex)
+train$Embarked <- as.factor(train$Embarked)
+```
+<!--Survived is a categorical variable a bar chat was the best to use to show count--> 
+```{r}
+#Q1. What was the survival rate
+
+ggplot(train, aes(x = Survived)) +
+  theme_classic() +
+  geom_bar() +
+  labs( title = "Bar Chart Showing the Survival Rate in The Titanic",
+        y = "Passenger count",
+        caption = "Twitter @mrAfricanSeed")
+
+```
+```{r}
+library(tidyverse)
+```
+
+<!-------Q1. What is the survival rate by gender?------------------->
+```{r}
+#Q2. What is the survival rate by gender?
+
+ggplot(train, aes(x = Sex, fill = Survived)) +
+  theme_classic() +
+  geom_bar() +
+  labs( title = "Bar Chart Showing the Survival Rate by Gender",
+        y = "Passenger count",
+        caption = "Twitter @mrAfricanSeed")
+
+# From the bar chart, I can observe, there were more male passengers than female passengers in the ship
+# More female passengers survived than male passengers.
+# what are your observations?
+```
+```{r}
+ggplot(train, aes(x =Sex, fill = Survived)) +
+  theme_classic() +
+  geom_bar() +
+  labs( title = "Bar Chart Showing the Survival Rate by Passenger class tickets",
+        y = "Passenger count",
+        caption = "Twitter @mrAfricanSeed")
+
+```
+
+
+
+```
+
+<!------------What was the survival rate by class ticket---------->
+```{r}
+#Q3. What was the survival rate by class ticket
+
+ggplot(train, aes(x =Sex, fill = Survived)) +
+  theme_classic() +
+  geom_bar() +
+  labs( title = "Bar Chart Showing the Survival Rate by Passenger class tickets",
+        y = "Passenger count",
+        caption = "Twitter @mrAfricanSeed")
+
+# Observations
+# more than half of the 1st class passengers survived
+# 3rd class had the most passengers in the ship
+# most 3rd class passengers didn't survive
+```
+```{r}
+ggplot(titanic, aes(x = Sex, fill = Survived)) +
+  theme_bw() +
+  facet_wrap(~ Pclass) +
+  geom_bar() +
+  labs( title = "Bar Chart Showing the Survival Rate by Passenger class tickets and gender",
+        y = "Passenger count",
+        caption = "Twitter @mrAfricanSeed")
+```
+
+```
+```{r}
+ggplot(train,aes(x=Sex,fill=Survived))+theme_bw()+facet_wrap(~Pclass)+geom_bar()
+```
+
+<!--------------------->
+```{r}
+#Q4. What was the survival rate by class tickets and gender
+
+ggplot(train, aes(x = Sex, fill = Survived)) +
+  theme_bw() +
+  facet_wrap(~ Pclass) +
+  geom_bar() +
+  labs( title = "Bar Chart Showing the Survival Rate by Passenger class tickets and gender",
+        y = "Passenger count",
+        caption = "Twitter @mrAfricanSeed")
+```
+
+
+<!----Q5. What is the distribution of passenger ages?---->
+.
+```{r}
+#What is the distribution of passenger ages?
+#To achieve this we visualize numerical data on a histogram
+ggplot(train, aes(x = Age, fill = Survived)) +
+  theme_bw() +
+  geom_histogram(binwidth = 7) +
+  labs( title = "Titanic Passangers Age Distribution",
+        y = "Passenger count",
+        caption = "Twitter @mrAfricanSeed")
+
+#From he histogram, one can observe the relative proportion of survival by age.
+
+```
+
+<!--numeric data can also be represented in a box-plot that-->
+```{r}
+#What is the survival rate by age
+ggplot(train, aes(x = Survived, y = Age)) +
+  theme_bw() +
+  geom_boxplot() +
+  labs( title = "BoxPlot Representing Survival rate by Age",
+        y = "Passenger count",
+        caption = "Twitter @mrAfricanSeed")
+```
+
+<!---------------A density plot---  ---->
+```{r}
+#Q7. What is the survival rate by age when segmented by gender an class ticket?
+ggplot(train, aes(x = Age, fill = Survived)) +
+  theme_bw() +
+  facet_wrap(Sex ~Pclass) +
+  geom_density(alpha = 0.6) +
+  labs( x = "Survived",
+        y = "Age",
+        title = "Titanic Survival Rate by Age, Pclass & Sex",
+        caption = "Twitter @mrAfricanSeed")
+
+```
+
+<!-----Histogram representing the solution to Q7 above----->
+```{r}
+ggplot(train, aes(x = Age, fill = Survived)) +
+  theme_bw() +
+  facet_wrap(Sex ~Pclass) +
+  geom_histogram() +
+  labs( x = "Survived",
+        y = "Age",
+        title = "Titanic Survival Rate by Age, Pclass & Sex",
+        caption = "Twitter @mrAfricanSeed")
+
+```
+
